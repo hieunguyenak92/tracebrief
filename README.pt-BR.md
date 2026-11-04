@@ -8,6 +8,8 @@ Veja a ordem das requisições, falhas HTTP, requisições lentas e rotas repeti
 
 [Privacidade](docs/PRIVACY.md) · [Alternativas](docs/COMPARISON.md) · [Como contribuir](CONTRIBUTING.md)
 
+**[Experimentar a demonstração online](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![Tracebrief exibindo uma captura de rede fictícia](docs/demo.jpg)
 
 ## Experimente
@@ -15,6 +17,8 @@ Veja a ordem das requisições, falhas HTTP, requisições lentas e rotas repeti
 Requer **Node.js 22 ou superior**. Na pasta de uma cópia do repositório:
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 

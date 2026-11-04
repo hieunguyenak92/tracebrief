@@ -2,7 +2,7 @@
   "name": "tracebrief",
   "version": "0.1.0",
   "private": true,
-  "description": "Local HAR performance reports with anonymous endpoints and no payloads.",
+  "description": "Local HAR network reports with opaque endpoint aliases and no payloads.",
   "type": "module",
   "license": "MIT",
   "engines": { "node": ">=22" },

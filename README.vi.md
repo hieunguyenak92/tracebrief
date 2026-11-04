@@ -10,6 +10,8 @@ Biến bản ghi HAR của trình duyệt thành báo cáo ngắn gọn cho đ�
 
 [Cam kết xử lý dữ liệu — tiếng Anh](docs/PRIVACY.md) · [So sánh công cụ — tiếng Anh](docs/COMPARISON.md)
 
+**[Dùng thử demo trực tiếp](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![Tracebrief với bản ghi mạng hư cấu](docs/demo.jpg)
 
 ## Dành cho lúc cần bàn giao thông tin lỗi
@@ -25,6 +27,8 @@ HAR là file nhật ký mạng xuất từ DevTools của trình duyệt. Bạn 
 Cần **Node.js 22 trở lên**. Trong thư mục mã nguồn:
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 

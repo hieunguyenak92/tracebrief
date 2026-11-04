@@ -8,6 +8,8 @@
 
 [隐私处理约定](docs/PRIVACY.md) · [替代工具对比](docs/COMPARISON.md) · [贡献指南](CONTRIBUTING.md)
 
+**[体验在线演示](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![Tracebrief 展示虚构的网络请求记录](docs/demo.jpg)
 
 ## 快速体验
@@ -15,6 +17,8 @@
 需要 **Node.js 22 或更高版本**。在检出的仓库目录中运行：
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 

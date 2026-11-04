@@ -8,6 +8,8 @@
 
 [プライバシーの設計と制限](docs/PRIVACY.md) · [他のツールとの比較](docs/COMPARISON.md) · [貢献ガイド](CONTRIBUTING.md)
 
+**[ライブデモを試す](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![架空のネットワークキャプチャを表示したTracebrief](docs/demo.jpg)
 
 ## 試してみる
@@ -15,6 +17,8 @@
 **Node.js 22以降**が必要です。チェックアウトしたディレクトリで実行します。
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 

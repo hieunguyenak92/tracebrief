@@ -22,3 +22,5 @@ There is no guaranteed response SLA or bounty program. Do not send real secrets 
 The privacy boundary is documented in [PRIVACY.md](docs/PRIVACY.md). Exported timings, sizes, methods, statuses and request patterns remain potentially sensitive. The tool does not promise complete PII removal, secure memory erasure or anonymous output. A report must be reviewed before sharing.
 
 Run private captures only in a trusted copy. Browser extensions, compromised dependencies outside this project, modified hosted copies, terminal logging and recipient handling are outside the application's control.
+
+The CLI rejects existing output entries, including dangling symlinks, and requests exclusive file creation. Use an output directory you control. These checks are not a sandbox against another process changing directory entries concurrently, especially on Windows or network filesystems.

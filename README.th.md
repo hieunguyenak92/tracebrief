@@ -8,6 +8,8 @@
 
 [ขอบเขตความเป็นส่วนตัว (ภาษาอังกฤษ)](docs/PRIVACY.md) · [เปรียบเทียบเครื่องมือ (ภาษาอังกฤษ)](docs/COMPARISON.md) · [แนวทางการมีส่วนร่วม (ภาษาอังกฤษ)](CONTRIBUTING.md)
 
+**[ลองใช้เดโมออนไลน์](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![Tracebrief แสดงข้อมูลเครือข่ายจากตัวอย่างที่สร้างขึ้นเพื่อสาธิต](docs/demo.jpg)
 
 ## เริ่มใช้งาน
@@ -15,6 +17,8 @@
 ต้องใช้ **Node.js 22 ขึ้นไป** จากโฟลเดอร์ซอร์สโค้ดที่ดาวน์โหลดหรือโคลนมา ให้รัน:
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 

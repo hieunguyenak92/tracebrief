@@ -8,6 +8,8 @@
 
 [개인정보 처리 범위](docs/PRIVACY.md) · [대안 비교](docs/COMPARISON.md) · [기여 안내](CONTRIBUTING.md)
 
+**[라이브 데모 체험](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![가상의 네트워크 캡처를 표시하는 Tracebrief](docs/demo.jpg)
 
 ## 시작하기
@@ -15,6 +17,8 @@
 **Node.js 22 이상**이 필요합니다. 저장소를 내려받은 디렉터리에서 실행하세요.
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 

@@ -8,6 +8,8 @@ Ordre des requêtes, erreurs HTTP, requêtes lentes et routes répétées, sans 
 
 [Confidentialité](docs/PRIVACY.md) · [Alternatives](docs/COMPARISON.md) · [Contribuer](CONTRIBUTING.md)
 
+**[Essayer la démo en ligne](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![Tracebrief affichant une capture réseau fictive](docs/demo.jpg)
 
 ## Essayer
@@ -15,6 +17,8 @@ Ordre des requêtes, erreurs HTTP, requêtes lentes et routes répétées, sans 
 Nécessite **Node.js 22 ou une version ultérieure**. Depuis une copie du dépôt :
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 

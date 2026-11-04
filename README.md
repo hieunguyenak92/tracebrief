@@ -10,6 +10,8 @@ Turn a browser HAR capture into a concise report for a teammate, a GitHub issue,
 
 [Privacy contract](docs/PRIVACY.md) · [Alternatives](docs/COMPARISON.md) · [Contributing](CONTRIBUTING.md)
 
+**[Try the live demo](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![Tracebrief displaying a synthetic network capture](docs/demo.jpg)
 
 ## Built for the handoff
@@ -25,6 +27,8 @@ HAR is the network log your browser's developer tools can export. Try the includ
 Requires **Node.js 22 or later**. From a checkout:
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 

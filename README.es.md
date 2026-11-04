@@ -8,6 +8,8 @@ Orden de las solicitudes, errores HTTP, peticiones lentas y rutas repetidas, sin
 
 [Privacidad](docs/PRIVACY.md) · [Alternativas](docs/COMPARISON.md) · [Cómo contribuir](CONTRIBUTING.md)
 
+**[Probar la demo en vivo](https://hieunguyenak92.github.io/tracebrief/)**
+
 ![Tracebrief mostrando una captura de red ficticia](docs/demo.jpg)
 
 ## Pruébalo
@@ -15,6 +17,8 @@ Orden de las solicitudes, errores HTTP, peticiones lentas y rutas repetidas, sin
 Requiere **Node.js 22 o posterior**. Desde una copia del repositorio:
 
 ```sh
+git clone https://github.com/hieunguyenak92/tracebrief.git
+cd tracebrief
 npm run dev
 ```
 
