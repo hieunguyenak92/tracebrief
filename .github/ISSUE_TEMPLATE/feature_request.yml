@@ -1,0 +1,25 @@
+name: Feature request
+description: Explain a network-reporting task that Tracebrief cannot yet handle.
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What task are you trying to complete?
+      description: Explain the recipient and the decision the report needs to support. Use invented details.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested behavior
+      description: A focused improvement, including any alternatives you have tried.
+    validations:
+      required: true
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Data needed and privacy tradeoff
+      description: Which additional fields would be retained or displayed? Why are they needed?
+    validations:
+      required: true
