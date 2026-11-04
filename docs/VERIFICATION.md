@@ -29,4 +29,8 @@ Nine localized README files were checked for matching command blocks, input limi
 
 ## Public release checks
 
-Check the repository's Actions tab and release notes for public CI and release results. A locally passing check is not presented as a completed GitHub CI job.
+- [GitHub Verify run 3](https://github.com/hieunguyenak92/tracebrief/actions/runs/41797425594) passed the Node.js 22/24 matrix on Ubuntu, Windows and macOS. The POSIX FIFO check is intentionally skipped on Windows, which does not provide `mkfifo`.
+- The first public matrix exposed Windows behavior when creating output through a dangling symlink. The CLI now checks the directory entry with `lstat` before requesting exclusive creation; the regression test also checks that the link, target and input are preserved.
+- [Hosted demo](https://hieunguyenak92.github.io/tracebrief/) loaded successfully, ran the fictional 12-request capture, and showed three matching rows with the Errors filter.
+
+See the latest Actions run and release notes for checks on later commits. CI is a compatibility check, not a security certification.
