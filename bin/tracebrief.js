@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { open, writeFile, realpath } from 'node:fs/promises';
+import { open, writeFile, lstat } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { resolve } from 'node:path';
 import { analyzeHar, parseHar, toMarkdown, toHtml, toShareHar, MAX_INPUT_BYTES, VERSION } from '../public/core.js';
@@ -71,10 +71,15 @@ async function main() {
     : format === 'html' ? toHtml(analysis)
     : `${JSON.stringify(format === 'har' ? toShareHar(analysis) : analysis, null, 2)}\n`;
   if (!output) { process.stdout.write(content); return; }
-  // Check same-target symlinks for a useful error; exclusive creation protects all existing paths.
-  try { if (await realpath(input) === await realpath(output)) throw new Error('same-input'); }
-  catch (error) { if (error.message === 'same-input') throw new Error('Output cannot replace the input file.'); }
-  try { await writeFile(output, content, { flag: 'wx', mode: 0o600 }); }
+  try {
+    // lstat checks the entry itself: Windows wx may follow a dangling link to a new target.
+    // Keep wx for exclusive creation; use a trusted directory, not one modified concurrently.
+    let existing;
+    try { existing = await lstat(output); }
+    catch (error) { if (error.code !== 'ENOENT') throw error; }
+    if (existing) throw new Error('output-exists');
+    await writeFile(output, content, { flag: 'wx', mode: 0o600 });
+  }
   catch { throw new Error('Could not create output. Use a new path in an existing directory.'); }
 }
 
