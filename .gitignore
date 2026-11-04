@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.har
+!public/samples/demo.har
+reports/
+.DS_Store
+coverage/
