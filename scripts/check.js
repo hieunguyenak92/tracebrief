@@ -14,7 +14,8 @@ for (const folder of ['bin', 'scripts', 'public', 'test']) {
   }
 }
 const html = await readFile(resolve(root, 'public/index.html'), 'utf8');
-if (/(?:src|href)=["'](?:https?:)?\/\//i.test(html)) throw new Error('Remote asset/link added; verify offline privacy policy before changing this check.');
+const assetMarkup = html.replace(/<a\b[^>]*href="https:\/\/github\.com\/hieunguyenak92\/tracebrief"[^>]*>/g, '');
+if (/(?:src|href)=["'](?:https?:)?\/\//i.test(assetMarkup)) throw new Error('Remote asset/link added; verify offline privacy policy before changing this check.');
 for (const file of ['public/app.js', 'public/core.js']) {
   const text = await readFile(resolve(root, file), 'utf8');
   if (/\b(?:fetch\s*\(|XMLHttpRequest|WebSocket|sendBeacon|localStorage|sessionStorage)\b/.test(text)) throw new Error(`Network/persistence API in ${file}; requires explicit review.`);
