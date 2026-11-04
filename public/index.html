@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#292c27" />
+    <meta name="description" content="Turn a HAR capture into a small network report. Local processing, opaque endpoint aliases, and metadata-only Markdown, HTML, and HAR exports." />
+    <title>Tracebrief — a network trace, ready to share</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#workspace">Skip to workspace</a>
+    <div class="app-frame">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Tracebrief home">
+          <svg class="brand-mark" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M3 7h8v5h7V4h7M3 21h8v-5h7v8h7" stroke="currentColor" stroke-width="2"/><path d="M14 1v26" stroke="currentColor" stroke-opacity=".18"/></svg>
+          <span>tracebrief<span class="brand-dot">.</span></span>
+        </a>
+        <div class="header-status"><span class="status-dot"></span>RUNS IN YOUR BROWSER</div>
+        <a class="quiet-link" href="#limits">How sharing works <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <main id="workspace">
+        <section class="intro" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow"><span class="tiny-cross" aria-hidden="true">+</span> HAR → A CLEARER HANDOFF</p>
+            <h1 id="page-title">The useful part<br />of your network trace.</h1>
+            <p class="intro-copy">Find slow requests, HTTP errors, and repeated endpoints.<br class="desktop-break" /> Share a small report without the original URLs or payloads.</p>
+          </div>
+          <div class="intro-note">
+            <span class="note-index">[ 01 / LOCAL BY DESIGN ]</span>
+            <p>Your capture stays in this tab.<br />No upload. No account. No API key.</p>
+            <div class="signal-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </section>
+
+        <section id="import-section" class="import-panel" aria-labelledby="import-heading">
+          <div id="drop-zone" class="drop-zone">
+            <div class="drop-icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7 9m5-5 5 5M4 15v5h16v-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg></div>
+            <div class="drop-copy"><h2 id="import-heading">Drop a HAR file here</h2><p>Or choose a capture from your device. Up to 50 MiB.</p></div>
+            <input id="file-input" type="file" accept=".har,.json,application/json" hidden />
+            <button id="choose-file" class="button primary" type="button">Choose HAR file <span aria-hidden="true">↗</span></button>
+            <span class="import-or">or</span>
+            <button id="load-demo" class="button secondary" type="button">Try the demo <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="import-footnote"><span><span class="lock-icon" aria-hidden="true">⌑</span> Processed locally. Nothing is uploaded.</span><a href="#capture-help">Where do I get a HAR?</a></div>
+        </section>
+
+        <div id="live-status" class="live-status" role="status" aria-live="polite"></div>
+        <div id="error-panel" class="error-panel" role="alert" hidden><strong>Couldn’t open this capture.</strong><span id="error-message"></span></div>
+
+        <section id="empty-state" class="empty-state" aria-label="What you will get">
+          <div class="empty-heading"><span class="eyebrow">LESS NOISE. MORE CONTEXT.</span><span class="mono small muted">THREE THINGS TO TAKE AWAY</span></div>
+          <div class="benefit-grid">
+            <article><span class="benefit-number">01</span><h3>See the shape of a load</h3><p>A compact request waterfall with timing, response status, and repeated endpoints.</p></article>
+            <article><span class="benefit-number">02</span><h3>Leave the payloads behind</h3><p>Exports are rebuilt from allowed metadata. Headers, bodies, and original endpoints stay out.</p></article>
+            <article><span class="benefit-number">03</span><h3>Give someone a useful brief</h3><p>Download Markdown for an issue, HTML for a teammate, or an aliased HAR for inspection.</p></article>
+          </div>
+        </section>
+
+        <div id="analysis-section" hidden>
+          <section class="capture-heading" aria-label="Capture information">
+            <div><p class="eyebrow"><span class="status-dot"></span> CAPTURE READY</p><h2 id="capture-title">Your network, in brief.</h2><p id="capture-meta" class="muted small"></p></div>
+            <button id="reset" class="button text-button" type="button"><span aria-hidden="true">↺</span> Clear capture</button>
+          </section>
+
+          <section class="metric-grid" aria-label="Capture summary">
+            <article class="metric"><span class="metric-label">Requests</span><strong id="metric-requests">—</strong><span id="metric-endpoints" class="metric-detail">—</span></article>
+            <article class="metric"><span class="metric-label">Failed requests</span><strong id="metric-errors">—</strong><span id="metric-errors-detail" class="metric-detail">HTTP + network errors</span></article>
+            <article class="metric"><span class="metric-label">Slow requests</span><strong id="metric-slow">—</strong><span class="metric-detail">Duration ≥ 1,000 ms</span></article>
+            <article class="metric"><span class="metric-label">Repeated requests</span><strong id="metric-duplicates">—</strong><span class="metric-detail">After first; query ignored</span></article>
+            <article class="metric"><span class="metric-label">Observed span</span><strong id="metric-span">—</strong><span class="metric-detail">Not a page-load score</span></article>
+            <article class="metric"><span class="metric-label">Transfer size</span><strong id="metric-transfer">—</strong><span id="metric-transfer-detail" class="metric-detail">—</span></article>
+          </section>
+
+          <section class="request-panel" aria-labelledby="requests-heading">
+            <div class="section-title-row"><div><span class="eyebrow">[ 02 / REQUEST MAP ]</span><h2 id="requests-heading">Follow the requests.</h2></div><label class="local-toggle"><input id="show-urls" type="checkbox" /><span class="toggle-track" aria-hidden="true"></span><span>Show local URLs</span></label></div>
+            <p id="local-note" class="local-note" hidden>Original URLs are visible in this tab only. They never appear in a downloaded report. Hide them before sharing your screen.</p>
+            <div class="request-toolbar"><div class="filters" role="group" aria-label="Filter requests"><button class="filter active" data-filter="all" type="button" aria-pressed="true">All <span id="count-all">0</span></button><button class="filter" data-filter="errors" type="button" aria-pressed="false">Errors <span id="count-errors">0</span></button><button class="filter" data-filter="slow" type="button" aria-pressed="false">Slow <span id="count-slow">0</span></button><button class="filter" data-filter="duplicates" type="button" aria-pressed="false">Repeated <span id="count-duplicates">0</span></button></div><span class="waterfall-legend"><i class="legend-wait"></i> Wait <i class="legend-rest"></i> Other time</span></div>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Request waterfall, scroll horizontally on narrow screens">
+              <table class="request-table"><thead><tr><th class="column-id" scope="col">#</th><th class="column-request" scope="col">REQUEST / ALIASED ENDPOINT</th><th class="column-status" scope="col">STATUS</th><th class="column-time" scope="col">DURATION</th><th class="column-bytes" scope="col">TRANSFER</th><th class="column-waterfall" scope="col"><span class="waterfall-heading">RELATIVE TIMELINE <span id="timeline-end">—</span></span></th></tr></thead><tbody id="request-rows"></tbody></table>
+              <p id="no-requests" class="no-requests" hidden>No requests match this filter.</p>
+            </div>
+            <div class="table-footer"><span id="row-count" class="mono small muted"></span><div class="pagination"><button id="previous-page" class="page-button" type="button" aria-label="Previous page">←</button><span id="page-number" class="mono small">1 / 1</span><button id="next-page" class="page-button" type="button" aria-label="Next page">→</button></div></div>
+            <p class="timing-note">Timings come from the capture. Missing values stay unknown. Repeated endpoints share a method, origin, and path; query strings are ignored. A slow request alone does not identify a root cause.</p>
+          </section>
+
+          <section class="handoff-grid" aria-label="Sharing and excluded data">
+            <article class="inventory-panel" aria-labelledby="inventory-heading"><span class="eyebrow">[ 03 / DATA BOUNDARY ]</span><h2 id="inventory-heading">What stays out.</h2><p>These fields are omitted when the report is rebuilt. Counts describe fields in this capture, not detected secrets.</p><dl id="privacy-inventory" class="privacy-inventory"></dl><p class="inventory-note"><span aria-hidden="true">↳</span> Origins and paths become opaque aliases. Absolute dates become relative offsets.</p></article>
+            <article class="export-panel" aria-labelledby="export-heading"><span class="eyebrow">[ 04 / THE HANDOFF ]</span><h2 id="export-heading">Make it a brief.</h2><p>Choose a format for your next conversation.</p><div class="export-options"><button class="export-button" id="export-markdown" type="button"><span class="format-mark" aria-hidden="true">M↓</span><span><strong>Markdown</strong><small>Issues, notes, and AI assistants</small></span><span class="export-arrow" aria-hidden="true">↓</span></button><button class="export-button" id="export-html" type="button"><span class="format-mark" aria-hidden="true">&lt;/&gt;</span><span><strong>HTML report</strong><small>A standalone, readable document</small></span><span class="export-arrow" aria-hidden="true">↓</span></button><button class="export-button" id="export-har" type="button"><span class="format-mark" aria-hidden="true">{ }</span><span><strong>Reconstructed HAR</strong><small>Aliased metadata, not a replayable capture</small></span><span class="export-arrow" aria-hidden="true">↓</span></button></div><p class="review-notice"><strong>Review before sharing.</strong> Timing, sizes, status codes, and traffic patterns may still be sensitive. This tool does not guarantee removal of all identifying information.</p></article>
+          </section>
+
+          <details id="warnings-panel" class="details-panel" hidden><summary><span>Capture notes</span><span id="warning-count" class="details-badge">0</span></summary><ul id="warnings-list"></ul></details>
+          <details id="preview-panel" class="details-panel"><summary><span>Preview the Markdown report</span><span class="mono small muted">PLAIN TEXT</span></summary><p id="preview-note" class="small muted" hidden>Preview shortened for readability. The download includes the full report.</p><pre id="report-preview" class="report-preview" tabindex="0" aria-label="Markdown report preview"></pre></details>
+        </div>
+
+        <section class="help-section" id="limits" aria-labelledby="help-heading"><h2 id="help-heading">Before you share a trace.</h2><div class="help-grid"><details id="capture-help"><summary>How do I get a HAR capture?</summary><p>In your browser’s DevTools, open <strong>Network</strong>, record the action you want to inspect, then use the HAR export option. Browser labels vary. HAR files can contain credentials and private content, even when the browser offers a sanitized export.</p><p>Import a capture you are allowed to inspect. Tracebrief can read HAR 1.2 captures with a <code>log.entries</code> array.</p></details><details><summary>What is safe to share?</summary><p>Tracebrief rebuilds each export from a limited set of numeric and categorized metadata. Original URLs, headers, cookies, query values, payloads, and unknown custom fields are excluded.</p><p>Metadata can still identify activity. Review the result and your organization’s sharing requirements before sending it to a teammate or AI service.</p></details><details><summary>What does the report leave out?</summary><p>Opaque origin and route aliases preserve grouping without revealing names. Dates are shifted to a fixed base. Exports cannot replay original requests.</p><p>It does not diagnose performance causes, inspect encrypted content, or promise universal removal of personal information. Incomplete HAR fields remain unknown.</p></details></div></section>
+      </main>
+
+      <footer class="footer"><span class="brand footer-brand">tracebrief<span class="brand-dot">.</span></span><span>A little context goes a long way.</span><span class="mono footer-version">OPEN SOURCE / <span id="version">v0.1.0</span></span></footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
