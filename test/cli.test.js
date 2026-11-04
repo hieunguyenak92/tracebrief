@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, writeFileSync, symlinkSync, rmSync, truncateSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync, symlinkSync, lstatSync, readlinkSync, rmSync, truncateSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -165,9 +165,19 @@ test('a dangling output symlink cannot redirect creation to another target', (t)
   const missingTarget = join(directory, 'not-created.md');
   const output = join(directory, 'dangling-link.md');
   symlinkSync(missingTarget, output, process.platform === 'win32' ? 'file' : undefined);
+  assert.equal(lstatSync(output).isSymbolicLink(), true);
+  const linkTarget = readlinkSync(output);
+  const originalInput = readFileSync(input, 'utf8');
   const result = invoke([input, '--output', output]);
-  assert.notEqual(result.status, 0);
+  assert.equal(result.error, undefined);
+  assert.equal(result.status, 1);
+  assert.equal(result.stdout, '');
+  assert.match(result.stderr, /Could not create output/);
+  assertNoSource(result.stderr);
+  assert.equal(lstatSync(output).isSymbolicLink(), true);
+  assert.equal(readlinkSync(output), linkTarget);
   assert.throws(() => readFileSync(missingTarget), { code: 'ENOENT' });
+  assert.equal(readFileSync(input, 'utf8'), originalInput);
 });
 
 test('missing files, malformed input and unsupported options fail without source content', (t) => {
